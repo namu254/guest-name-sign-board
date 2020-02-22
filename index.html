@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Guest name Airport taxi</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .center {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            /* bring your own prefixes */
+            transform: translate(-50%, -50%);
+            /* display: none; */
+            margin: 20px;
+        }
+
+        .center input {
+            padding: 35px;
+            border: 1px solid black;
+            border-radius: 4px;
+            font-size: xx-large;
+
+        }
+
+        .center button {
+            text-align: center;
+            padding: 20px;
+            width: 60%;
+            margin-top: 25px;
+            border: none;
+            color: white;
+            background-color: #B69E4F;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer
+        }
+
+        .fullscreen {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            /* bring your own prefixes */
+            transform: translate(-50%, -50%)
+        }
+
+        .fullscreen p {
+            font-size: 10vw;
+            font-weight: bold;
+            clear: both;
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        #exitFullScreen {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            display: none;
+            background-color: #515148;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer
+        }
+
+        #logo {
+            text-align: center;
+            background-color: #515148;
+            width: 100%;
+        }
+
+        #logo img {
+            text-align: center;
+            height: 150px;
+            width: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="logo">
+        <img src="img/logo.jpg">
+    </div>
+    <div class="center">
+        <input type="text" placeholder="Type the guest name" autofocus id="nameInput">
+        <br>
+        <button id="goFullScreen">Go Fullscreen</button>
+    </div>
+    <div class="fullscreen">
+        <p id="nameFullScreen"></p>
+
+    </div>
+
+    <button id="exitFullScreen" onclick="toggleFullScreen()">Exit</button>
+
+
+    <script>
+        const guestNameFullScreen = document.getElementById("nameFullScreen");
+        const normalScreen = document.getElementsByClassName("center");
+        const fullscreen = document.getElementsByClassName("fullscreen");
+
+
+        document.getElementById("goFullScreen").addEventListener("click", function () {
+            toggleFullScreen();
+            console.log(document.getElementById("nameInput").value);
+        });
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+                guestNameFullScreen.innerHTML = document.getElementById("nameInput").value;
+                normalScreen[0].style.display = "none";
+                fullscreen[0].style.display = "block";
+                document.getElementById("exitFullScreen").style.display = "block";
+
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                    normalScreen[0].style.display = "block";
+                    fullscreen[0].style.display = "none";
+                    document.getElementById("exitFullScreen").style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
